@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqi.mybatis.mapper.Coursemapper">
+
+        <insert id="insertcourse">
+            insert into c_course values (null,'大数据存储',32,1);
+        </insert>
+
+
+        <update id="updatecourse">
+            update c_course set hours=40 where id =4;
+        </update>
+
+
+
+        <resultMap id="courseAndschoolResultMapOne" type="Course">
+            <id property="id" column="id"></id>
+            <result property="course" column="course"></result>
+            <result property="hours" column="hours"></result>
+            <result property="sid" column="sid"></result>
+            <result property="school.sid" column="sid"/>
+            <result property="school.schoolname" column="schoolname"></result>
+        </resultMap>
+        <select id="getCourseAndSchool" resultMap="courseAndschoolResultMapOne">
+            select * from c_course left join s_school on c_course.sid=s_school.sid where c_course.id=#{id};
+        </select>
+
+        <resultMap id="courseAndschoolResultMaptwo" type="Course">
+            <id property="id" column="id"></id>
+            <result property="course" column="course"></result>
+            <result property="hours" column="hours"></result>
+            <result property="sid" column="sid"></result>
+            <result property="school.sid" column="sid"/>
+            <result property="school.schoolname" column="schoolname"></result>
+        </resultMap>
+        <select id="getAllCourse" resultMap="courseAndschoolResultMaptwo">
+            select * from c_course left join s_school on c_course.sid=s_school.sid
+        </select>
+
+
+
+        <resultMap id="courseAndschoolResultMapthree" type="Course">
+            <id property="id" column="id"></id>
+            <result property="course" column="course"></result>
+            <result property="hours" column="hours"></result>
+            <result property="sid" column="sid"></result>
+            <result property="school.sid" column="sid"/>
+            <result property="school.schoolname" column="schoolname"></result>
+        </resultMap>
+        <select id="getAllCourseFrom1" resultMap="courseAndschoolResultMapthree">
+            select * from c_course left join s_school on c_course.sid=s_school.sid where s_school.sid=#{id}
+        </select>
+
+
+    </mapper>
